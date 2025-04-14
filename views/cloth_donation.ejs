@@ -11,6 +11,7 @@
     <table border="1">
         
         <tr>
+            <th>Event Manager</th>
             <th>Address</th>
             <th>Event Date</th>
             <th>Discription</th>
@@ -18,12 +19,15 @@
         </tr>
         <% for ( event of events ) {%>
             <tr>
+                <td><%= event.uusername %></td>
                 <td><%= event.address %></td>
                 <td><%= event.event_date %></td>
                 <td><%= event.disc %></td>
                 <td><%= event.no_volunteers %></td>
                 <td>
-                    <button class="btn-buy showInputBtn">Select</button>
+                    <form action="/volunteer_home/<%= volunteer.vid %>/cloth_donation/<%= event.eid %>" method="POST">
+                        <button type="submit">Select</button>
+                    </form>
                 </td>
             </tr>
         <% } %>

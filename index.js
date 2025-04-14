@@ -197,6 +197,78 @@
             })
         }
     })
+
+    app.get("/volunteer_home/:vid/:event_type",(req,res)=>{
+        let {vid,event_type}=req.params;
+
+        if(event_type=="blood_donation"){
+            q=`select * from events where event_type=?`;
+            connect.query(q,[event_type],(err,result)=>{
+                if(err) throw err;
+                qu=`select * from vlogin where vid=?`;
+                connect.query(qu,[vid],(err,result1)=>{
+                    if (err) throw err;
+                    let events=result;
+                    let volunteer=result1[0];
+                    res.render("blood_donation",{events,volunteer});
+                })
+            })
+        }
+        if(event_type=="tree_plantation"){
+            q=`select * from events where event_type=?`;
+            connect.query(q,[event_type],(err,result)=>{
+                if(err) throw err;
+                qu=`select * from vlogin where vid=?`;
+                connect.query(qu,[vid],(err,result1)=>{
+                    if (err) throw err;
+                    let events=result;
+                    let volunteer=result1[0];
+                    res.render("tree_plantation",{events,volunteer});
+                })
+            })
+        }
+        if(event_type=="cloth_donation"){
+            q=`select * from events where event_type=?`;
+            connect.query(q,[event_type],(err,result)=>{
+                if(err) throw err;
+                qu=`select * from vlogin where vid=?`;
+                connect.query(qu,[vid],(err,result1)=>{
+                    if (err) throw err;
+                    let events=result;
+                    let volunteer=result1[0];
+                    res.render("cloth_donation",{events,volunteer});
+                })
+            })
+        }
+    })
+
+    app.post("/volunteer_home/:vid/blood_donation/:eid",(req,res)=>{
+        let {vid,eid}=req.params;
+        q=`update events set no_volunteers=no_volunteers-1 where eid=?`;
+        connect.query(q,[eid],(err,result)=>{
+            if (err) throw err;
+            console.log("into blood...")
+            res.redirect(`/volunteer_home/${vid}/blood_donation`);
+        })
+    })
+    
+    app.post("/volunteer_home/:vid/tree_plantation/:eid",(req,res)=>{
+        let {vid,eid}=req.params;
+        q=`update events set no_volunteers=no_volunteers-1 where eid=?`;
+        connect.query(q,[eid],(err,result)=>{
+            if (err) throw err;
+            res.redirect(`/volunteer_home/${vid}/tree_plantation`);
+        })
+    })
+    app.post("/volunteer_home/:vid/cloth_donation/:eid",(req,res)=>{
+        let {vid,eid}=req.params;
+        q=`update events set no_volunteers=no_volunteers-1 where eid=?`;
+        connect.query(q,[eid],(err,result)=>{
+            if (err) throw err;
+            res.redirect(`/volunteer_home/${vid}/cloth_donation`);
+        })
+    })
+
     app.listen('3200',()=>{
         console.log("server is  running on port 3200....");
     });
