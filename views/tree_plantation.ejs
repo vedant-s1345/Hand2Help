@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Tree Plantation</h1>
+    <table border="1">
+        
+        <tr>
+            <th>Address</th>
+            <th>Event Date</th>
+            <th>Discription</th>
+            <th>No. of Volunteers</th>
+        </tr>
+        <% for ( event of events ) {%>
+            <tr>
+                <td><%= event.address %></td>
+                <td><%= event.event_date %></td>
+                <td><%= event.disc %></td>
+                <td><%= event.no_volunteers %></td>
+                <td>
+                    <button class="btn-buy showInputBtn">Select</button>
+                </td>
+            </tr>
+        <% } %>
+    
+    </table>
+</body>
+</html>

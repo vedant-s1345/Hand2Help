@@ -45,7 +45,6 @@
                     res.redirect(`/user_home/${ress.uid}`);
                 }
             })
-            
         });
     });
 
@@ -67,7 +66,6 @@
                 res.render("user_login",{ message: "No such User found..." });
             }
         })
-    
     });
 
     app.get("/user_home/:uid",(req,res)=>{
@@ -130,7 +128,7 @@
             if (result.length > 0) {
                 const ress = result[0];
                 if(password == ress.vpassword){
-                    res.redirect(`/volunteer_login/${ress.vid}`);
+                    res.redirect(`/volunteer_home/${ress.vid}`);
                 }
                 else{
                     res.render("volunteer_login",{ message: "Invalid Username or Password..." });
@@ -142,6 +140,63 @@
     
     });
 
+    app.get("/volunteer_home/:vid",(req,res)=>{
+        let {vid}=req.params;
+        q=`select distinct event_type from events`;
+        connect.query(q,(err,result)=>{
+            if (err) throw err;
+            qu=`select * from vlogin where vid=?`;
+            connect.query(qu,[vid],(err,result1)=>{
+                if (err) throw err;
+                let events=result;
+                let volunteer=result1[0];
+                res.render("volunteer_home",{events,volunteer});
+            })
+        })
+    })
+    app.post("/volunteer_home/:vid/:event_type",(req,res)=>{
+        let {vid,event_type}=req.params;
+
+        if(event_type=="blood_donation"){
+            q=`select * from events where event_type=?`;
+            connect.query(q,[event_type],(err,result)=>{
+                if(err) throw err;
+                qu=`select * from vlogin where vid=?`;
+                connect.query(qu,[vid],(err,result1)=>{
+                    if (err) throw err;
+                    let events=result;
+                    let volunteer=result1[0];
+                    res.render("blood_donation",{events,volunteer});
+                })
+            })
+        }
+        if(event_type=="tree_plantation"){
+            q=`select * from events where event_type=?`;
+            connect.query(q,[event_type],(err,result)=>{
+                if(err) throw err;
+                qu=`select * from vlogin where vid=?`;
+                connect.query(qu,[vid],(err,result1)=>{
+                    if (err) throw err;
+                    let events=result;
+                    let volunteer=result1[0];
+                    res.render("tree_plantation",{events,volunteer});
+                })
+            })
+        }
+        if(event_type=="cloth_donation"){
+            q=`select * from events where event_type=?`;
+            connect.query(q,[event_type],(err,result)=>{
+                if(err) throw err;
+                qu=`select * from vlogin where vid=?`;
+                connect.query(qu,[vid],(err,result1)=>{
+                    if (err) throw err;
+                    let events=result;
+                    let volunteer=result1[0];
+                    res.render("cloth_donation",{events,volunteer});
+                })
+            })
+        }
+    })
     app.listen('3200',()=>{
         console.log("server is  running on port 3200....");
     });

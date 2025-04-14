@@ -26,9 +26,10 @@
                 <td><%= event.disc %></td>
                 <td><%= event.no_volunteers %></td>
             </tr>
-            <% } %>
+        <% } %>
     
-</table>
+    </table>
+
     <h2>Add Event:</h2>
     <form method="post" action="/user_home/<%= user.uid %>/submitform">
         <input type="name" name="name" placeholder="Event Manager" required>
@@ -46,7 +47,7 @@
         <input type="discription" name="discription" placeholder="Event Discription" required>
         <input type="volunteers" name="volunteers" placeholder="No. of Volunteers Req." required>
         <input type="phone_no" name="phone_no" placeholder="Event Manager Phone No." required>
-        <input type="attendent" name="attendent" placeholder="No. of Attendents" required>
+        <input type="attendent" name="attendent" placeholder="No. of Attendents">
         <button type="submit">Add Event</button> 
 
     </form>
