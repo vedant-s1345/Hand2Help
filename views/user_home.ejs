@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome Back <%=user.uusername %></h1>
+
+    <h2>Your Events: </h2>
+    <table border="1">
+        
+        <tr>
+            <th>Event Name</th>
+            <th>Address</th>
+            <th>Event Date</th>
+            <th>Discription</th>
+            <th>No. of Volunteers</th>
+        </tr>
+        <% for ( event of events ) {%>
+            <tr>
+                <td><%= event.event_type %></td>
+                <td><%= event.address %></td>
+                <td><%= event.event_date %></td>
+                <td><%= event.disc %></td>
+                <td><%= event.no_volunteers %></td>
+            </tr>
+            <% } %>
+    
+</table>
+    <h2>Add Event:</h2>
+    <form method="post" action="/user_home/<%= user.uid %>/submitform">
+        <input type="name" name="name" placeholder="Event Manager" required>
+        <label for="events">Choose the Event:</label>
+            <select id="events" name="events">
+            <option value="blood_donation">Blood Donation</option>
+            <option value="tree_plantation">Tree Plantation</option>
+            <option value="cloth_donation">Cloth Donation</option>
+            </select>
+        <input type="address" name="address" placeholder="Event Address" required>
+
+        <label for="event_date">Event date:</label>
+        <input type="date" id="select_date" name="event_date" required>
+
+        <input type="discription" name="discription" placeholder="Event Discription" required>
+        <input type="volunteers" name="volunteers" placeholder="No. of Volunteers Req." required>
+        <input type="phone_no" name="phone_no" placeholder="Event Manager Phone No." required>
+        <input type="attendent" name="attendent" placeholder="No. of Attendents" required>
+        <button type="submit">Add Event</button> 
+
+    </form>
+</body>
+</html>
